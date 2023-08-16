@@ -1,0 +1,70 @@
+
+<dx-toolbar [items]="toolbarContent"> </dx-toolbar>
+<dx-drawer
+  [openedStateMode]="selectedOpenMode"
+  [position]="selectedPosition"
+  [revealMode]="selectedRevealMode"
+  template="template"
+  [(opened)]="isDrawerOpen"
+  [height]="600"
+  [closeOnOutsideClick]="false"
+>
+  <div *dxTemplate="let data of 'template'">
+    <dx-tree-view 
+    [dataSource]="files"
+    dataStructure="plain"
+    keyExpr="key"
+    displayExpr="name"
+    parentIdExpr="parent"
+    [searchEnabled]="true"
+    (onItemClick)="selectItem($event)"
+    [height]="'660px'"
+    >
+    </dx-tree-view>
+  </div>
+  <div id="content">
+    <ngx-extended-pdf-viewer
+          [src]="currentFile"
+          [textLayer]="true"
+          [showToolbar]="true"
+          [showSidebarButton]="true"
+          [showFindButton]="true"
+          [showPagingButtons]="true"
+          [showDrawEditor]="false"
+          [showTextEditor]="false"
+          [showZoomButtons]="true"
+          [showPresentationModeButton]="true"
+          [showOpenFileButton]="false"
+          [showPrintButton]="true"
+          [showDownloadButton]="true"
+          [showSecondaryToolbarButton]="true"
+          [showRotateButton]="true"
+          [showHandToolButton]="true"
+          [showScrollingButton]="true"
+          [showSpreadButton]="true"
+          [showPropertiesButton]="true"
+          [zoom]="'auto'"
+  
+          (pageChange)="onEvent('pageChange', $event)"
+          (afterPrint)="onEvent('afterPrint', $event)"
+          (beforePrint)="onEvent('beforePrint', $event)"
+          (currentZoomFactor)="onEvent('currentZoomFactor', $event)"
+          (pagesLoaded)="onPagesLoaded($event)"
+          (pageRendered)="onEvent('pageRendered', $event)"
+          (pdfDownloaded)="onEvent('pdfDownloaded', $event)"
+          (pdfLoadingStarts)="onEvent('pdfLoadingStarts', $event)"
+          (pdfLoaded)="onEvent('pdfLoaded', $event)"
+          (pdfLoadingFailed)="onEvent('pdfLoadingFailed', $event)"
+          (updateFindMatchesCount)="onEvent('updateFindMatchesCount', $event)"
+          (updateFindState)="onEvent('updateFindState', $event)"
+          (progress)="onEvent('onProgress', $event)"
+          (annotationLayerRendered)="onEvent('annotationLayerRendered', $event)"
+          (annotationEditorLayerRendered)="onEvent('annotationEditorLayerRendered', $event)"
+          (xfaLayerRendered)="onEvent('xfaLayerRendered', $event)"
+          (outlineLoaded)="onEvent('outlineLoaded', $event)"
+          (attachmentsloaded)="onEvent('attachmentsloaded', $event)"
+          (layersloaded)="onEvent('layersloaded', $event)"
+          (thumbnailDrawn)="onEvent('thumbnailDrawn', $event)"
+        ></ngx-extended-pdf-viewer>
+  </div>
+</dx-drawer>
